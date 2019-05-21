@@ -1,0 +1,17 @@
+const request = require('request')
+const API_KEY = '3515c71dca92ddc152afe1b00e786cff';
+const forecast = (latitude, longitude, callback) => {
+    const url = `https://api.darksky.net/forecast/${API_KEY}/` + latitude + ',' + longitude
+
+    request({ url, json: true }, (error, { body }) => {
+        if (error) {
+            callback('Unable to connect to weather service!', undefined)
+        } else if (body.error) {
+            callback('Unable to find location', undefined)
+        } else {
+            callback(undefined, body.daily.data[0].summary + ' It is currently ' + body.currently.temperature + ' degress out. There is a ' + body.currently.precipProbability + '% chance of rain.')
+        }
+    })
+}
+
+module.exports = forecast
