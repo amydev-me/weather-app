@@ -15,10 +15,10 @@ weatherForm.addEventListener('submit',(e)=>{
     e.preventDefault();
 
     const location = search.value;
-
+    messageTwo.textContent = '';
     if(location){
         messageOne.textContent = 'Loading...';
-        messageTwo.textContent = '';
+        
         fetch('/weather?address='+location).then((response)=>{
             response.json().then((data) =>{
                 if(data.error){
